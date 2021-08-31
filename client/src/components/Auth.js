@@ -31,7 +31,7 @@ const Auth = () => {
 
 		const {
 			data: { token, userId, hashedPassword },
-		} = axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
+		} = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
 			username,
 			password,
 			fullName,
@@ -46,7 +46,7 @@ const Auth = () => {
 
 		if (isSignup) {
 			cookies.set('phoneNumber', phoneNumber);
-			cookies.set('userId', userId);
+			cookies.set('avatarURL', avatarURL);
 			cookies.set('hashedPassword', hashedPassword);
 		}
 
@@ -62,7 +62,8 @@ const Auth = () => {
 			<div className='auth__form-container_fields'>
 				<div className='auth__form-container_fields-content'>
 					<p>{isSignup ? 'Sign Up' : 'Sign In'}</p>
-					<form action='' onSubmit={''}>
+
+					<form action='' onSubmit={handleSubmit}>
 						{isSignup && (
 							<div className='auth__form-container_fields-content_input'>
 								<label htmlFor='fullName'>Full Name</label>
@@ -151,7 +152,7 @@ const Auth = () => {
 						</p>
 						<span onClick={switchMode}>
 							{' '}
-							{isSignup ? ' Sign Up' : 'Sign In'}
+							{isSignup ? ' Sign In' : 'Sign Up'}
 						</span>
 					</div>
 				</div>
